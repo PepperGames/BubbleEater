@@ -8,19 +8,17 @@ public class Food : MonoBehaviour
 
     private bool isDissolving = false;
     private float fade = 1;
-    public float speed;
+    public float speed = 1;
 
     Vector3 newScale;
     float goscale = 1;
-    // Start is called before the first frame update
+
     void Start()
     {
         material = GetComponent<SpriteRenderer>().material;
         newScale = transform.localScale;
-        speed = 1;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount == 1)
@@ -29,8 +27,8 @@ public class Food : MonoBehaviour
         }
         if (isDissolving)
         {
-            fade -= speed*Time.deltaTime;
-            goscale += (1/fade)/200;
+            fade -= speed * Time.deltaTime;
+            goscale += (1 / fade) / 200;
             Debug.Log(goscale);
             if (fade <= 0)
             {
@@ -46,7 +44,7 @@ public class Food : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) || Input.touchCount == 2)
         {
             fade = 1;
-            goscale=1;
+            goscale = 1;
             SetFade();
             SetMaterialScale();
         }
@@ -61,7 +59,7 @@ public class Food : MonoBehaviour
     }
     void SetMaterialScale()
     {
-        material.SetFloat("_Scale", (10) * (1 + 3* fade));
+        material.SetFloat("_Scale", (30) * (1 + 5 * fade));
         SetGameobjectScale();
     }
     void SetGameobjectScale()
