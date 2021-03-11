@@ -23,7 +23,7 @@ public class Food : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount == 1)
         {
             isDissolving = changeBool(isDissolving);
         }
@@ -43,7 +43,7 @@ public class Food : MonoBehaviour
                 SetMaterialScale();
             }
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) || Input.touchCount == 2)
         {
             fade = 1;
             goscale=1;
@@ -61,7 +61,7 @@ public class Food : MonoBehaviour
     }
     void SetMaterialScale()
     {
-        material.SetFloat("_Scale", (20) * (1 + 3* fade));
+        material.SetFloat("_Scale", (10) * (1 + 3* fade));
         SetGameobjectScale();
     }
     void SetGameobjectScale()
