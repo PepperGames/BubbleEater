@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     public Camera mainCamera;
 
-
+    public PlayingField playingField;
     void Start()
     {
         target = transform.position;
@@ -37,5 +37,15 @@ public class Player : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target, step);
     }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("тригер");
+        if (collision.CompareTag("Food"))
+        {
+            Vector3 newScale1 = transform.localScale + new Vector3(0.1f,0.1f,0.1f);
+            transform.localScale = newScale1;
+            playingField.ResizeAll(0.1f);
+            Destroy(collision.gameObject);
+        }
+    }
 }

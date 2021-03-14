@@ -22,7 +22,7 @@ public class Food : MonoBehaviour
         material = GetComponent<SpriteRenderer>().material;
         currentScale = transform.localScale;
         dissolvingSpeed = Random.Range(1f, 4f);
-        timeToExplosion = Random.Range(2f, 6f);
+        timeToExplosion = Random.Range(2f, 4f);
     }
 
     void Update()
