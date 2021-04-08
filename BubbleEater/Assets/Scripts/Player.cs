@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     public Slider satietySlider;
     public Text weightText;
+
+    private bool alive = true;
     void Start()
     {
         target = transform.position;
@@ -27,7 +29,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Move();
+        if (alive)
+        {
+            Move();
+        }
+        else
+        {
+            print("смерть");
+        }
     }
 
     private void Move()
@@ -35,15 +44,18 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            playingField.targetToMove = target;
         }
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             target = Camera.main.ScreenToWorldPoint(touch.position);
+            playingField.targetToMove = target;
         }
 
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target, step);
+
 
         ConsumeFood(step);
     }
@@ -59,13 +71,12 @@ public class Player : MonoBehaviour
         currentSatiety += weight;
         if (currentSatiety > this.weight)
         {
-            float currentRadius = Mathf.Sqrt(this.weight / Mathf.PI);
+            float currentRadius = GetRadius(this.weight);
 
             weight = (currentSatiety - this.weight) / 2;
             currentSatiety = this.weight += weight;
 
-            float deltaRadius = Mathf.Sqrt(this.weight / Mathf.PI) - currentRadius;
-            print(deltaRadius);
+            float deltaRadius = GetRadius(this.weight) - currentRadius;
             Scale(deltaRadius);
         }
         DrowSatiety();
@@ -91,12 +102,27 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("тригер");
         if (collision.CompareTag("Food"))
         {
             Eat(collision.GetComponent<Food>().GetWeight());
             Destroy(collision.gameObject);
         }
+        else if (collision.CompareTag("Needle"))
+        {
+            print("смерть");
+            //alive = false;
+        }
     }
-
+    public float GetWeight()
+    {
+        return weight;
+    }
+    public float GetRadius(float weight)
+    {
+        return Mathf.Sqrt(weight / Mathf.PI);
+    }
+    public float GetRadius()
+    {
+        return Mathf.Sqrt(this.weight / Mathf.PI);
+    }
 }
