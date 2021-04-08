@@ -39,5 +39,7 @@ Material:
     m_Floats:
     - _Fade: 1
     - _Scale: 30
+    - _SpraySize: 30
     m_Colors:
     - _Color: {r: 1, g: 0, b: 0, a: 0}
+    - _StrokeColor: {r: 1, g: 0, b: 0, a: 0}

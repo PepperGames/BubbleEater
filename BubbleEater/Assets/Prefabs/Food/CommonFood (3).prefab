@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 60329030646110819}
   - component: {fileID: 60329030646110844}
   - component: {fileID: 60329030646110845}
+  - component: {fileID: 682207525494216607}
   m_Layer: 8
   m_Name: CommonFood (3)
   m_TagString: Food
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f22c100449382746872a9ea5ae88f9c, type: 3}
-  m_Color: {r: 0.5754717, g: 0.4696066, b: 0.4696066, a: 0.5019608}
+  m_Color: {r: 0.6156863, g: 0.8235294, b: 0.92156863, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,7 +99,6 @@ MonoBehaviour:
   dissolvingSpeed: 1
   timeToExplosion: 2
   circleCollider: {fileID: 60329030646110845}
-  weight: 0
 --- !u!58 &60329030646110845
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -115,3 +115,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &682207525494216607
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60329030646110847}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e098ca20bc69fbd44af9d63b524bdf78, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -21,10 +22,21 @@ public class Player : MonoBehaviour
     public Text weightText;
 
     private bool alive = true;
+
+    private Material material;
+    private float fade = 1;
+    private float scaleCoefficient = 1;
+    [SerializeField]
+    private float dissolvingSpeed;
+    private Vector3 currentScale;
+
     void Start()
     {
         target = transform.position;
         DrowWeight();
+
+        material = GetComponent<SpriteRenderer>().material;
+        dissolvingSpeed = 1f;
     }
 
     void Update()
@@ -35,7 +47,20 @@ public class Player : MonoBehaviour
         }
         else
         {
-            print("смерть");
+            fade -= dissolvingSpeed * Time.deltaTime;
+            scaleCoefficient += (1 / fade) / 80;
+
+            if (fade <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            SetFade();
+
+            if (fade >= 0.1f)
+            {
+                SetMaterialScale();
+            }
         }
     }
 
@@ -109,20 +134,51 @@ public class Player : MonoBehaviour
         }
         else if (collision.CompareTag("Needle"))
         {
-            print("смерть");
-            //alive = false;
+            SetDead();
         }
     }
+
     public float GetWeight()
     {
         return weight;
     }
+
     public float GetRadius(float weight)
     {
         return Mathf.Sqrt(weight / Mathf.PI);
     }
+
     public float GetRadius()
     {
         return Mathf.Sqrt(this.weight / Mathf.PI);
+    }
+
+    private void SetFade()
+    {
+        material.SetFloat("_Fade", fade);
+    }
+
+    private void SetMaterialScale()
+    {
+        material.SetFloat("_SpraySize", (30) * (1 + 5 * fade));
+        SetGameobjectScale();
+    }
+
+    private void SetGameobjectScale()
+    {
+        Vector3 newScale1 = currentScale * scaleCoefficient;
+        transform.localScale = newScale1;
+    }
+
+    private void SetDead()
+    {
+        print("смерть");
+        alive = false;
+        currentScale = transform.localScale;
+    }
+
+    private void ToDeadMenu()
+    {
+        SceneManager.LoadScene("OtherSceneName");
     }
 }

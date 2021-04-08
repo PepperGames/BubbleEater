@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f22c100449382746872a9ea5ae88f9c, type: 3}
-  m_Color: {r: 0.48097843, g: 0.47378963, b: 0.8584906, a: 1}
+  m_Color: {r: 0.6039216, g: 0.39215687, b: 0.1764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,6 +99,9 @@ MonoBehaviour:
   speed: 20
   mainCamera: {fileID: 0}
   playingField: {fileID: 0}
+  satietySlider: {fileID: 0}
+  weightText: {fileID: 0}
+  dissolvingSpeed: 0
 --- !u!58 &4861041505443614001
 CircleCollider2D:
   m_ObjectHideFlags: 0

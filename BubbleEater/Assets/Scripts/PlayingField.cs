@@ -45,6 +45,7 @@ public class PlayingField : MonoBehaviour
         SpawnFood();
         SpawnFood();
     }
+
     private void Update()
     {
         timeToSpawnFood -= Time.deltaTime;
@@ -62,9 +63,10 @@ public class PlayingField : MonoBehaviour
             timeToSpawnNeedle = repeatRateToSpawnNeedle;
         }
     }
+
     public void ResizeAll(float weight)
     {
-        scaleCoefficient += weight/2;
+        scaleCoefficient += weight / 2;
 
         rightLine = (startBackgroundX / 2) * scaleCoefficient;
         leftLine = -(startBackgroundX / 2) * scaleCoefficient;
@@ -72,10 +74,10 @@ public class PlayingField : MonoBehaviour
         bottomLine = -(startBackgroundY / 2) * scaleCoefficient;
         StartCoroutine(CameraSizeCoroutine());
     }
-   
+
     IEnumerator CameraSizeCoroutine()
     {
-        for (; currentScale <= scaleCoefficient; currentScale+=0.002f)
+        for (; currentScale <= scaleCoefficient; currentScale += 0.002f)
         {
             mainCamera.orthographicSize = startCameraSize * currentScale;
             background.transform.localScale = new Vector3(startBackgroundX * currentScale, startBackgroundY * currentScale, 1);
@@ -97,6 +99,7 @@ public class PlayingField : MonoBehaviour
             repeatRateToSpawnFood = 0.05f;
         }
     }
+
     private void MoveNeedle(GameObject needle)
     {
         Vector3 position = GetPointForNeedleMoving(1);
@@ -104,12 +107,14 @@ public class PlayingField : MonoBehaviour
         needle.transform.position = position;
         needle.transform.rotation = rotation;
     }
+
     private Vector2 GetPointForNeedleMoving(int i)
     {
-        Vector3 position = new Vector3(Random.Range(leftLine, rightLine), Random.Range(upperLine, bottomLine),0);
+        Vector3 position = new Vector3(Random.Range(leftLine, rightLine), Random.Range(upperLine, bottomLine), 0);
         float radius = player.GetComponent<Player>().GetRadius();
 
-        if (CanBePlaced(position, GetProjection(new PointF(position.x, position.y) , new PointF(player.transform.position.x, player.transform.position.y), new PointF(targetToMove.x, targetToMove.y))))
+        if (CanBePlaced(position, GetProjection(new PointF(position.x, position.y),
+            new PointF(player.transform.position.x, player.transform.position.y), new PointF(targetToMove.x, targetToMove.y))))
         {
             return position;
         }
@@ -117,16 +122,21 @@ public class PlayingField : MonoBehaviour
         {
             if (i > 3)
             {
-                return new Vector2(0, 0);
+                if (CanBePlaced(new Vector2(0, 0), GetProjection(new PointF(position.x, position.y),
+                    new PointF(player.transform.position.x, player.transform.position.y), new PointF(targetToMove.x, targetToMove.y))))
+                {
+                    return new Vector2(0, 0);
+                }
             }
             i++;
             print(i);
             return GetPointForNeedleMoving(i);
         }
     }
+
     private bool CanBePlaced(Vector3 position, PointF point)
     {
-        Circle playerCircle = new Circle(point.X, point.Y, player.GetComponent<Player>().GetRadius()); 
+        Circle playerCircle = new Circle(point.X, point.Y, player.GetComponent<Player>().GetRadius());
         Circle needleCircle = new Circle(position.x, position.y, 1.4f * Mathf.PI);
         return !playerCircle.IsIntersect(needleCircle);
     }
@@ -141,6 +151,4 @@ public class PlayingField : MonoBehaviour
 
         return new PointF(p1.X + (p2.X - p1.X) * t, p1.Y + (p2.Y - p1.Y) * t);
     }
-
-
 }

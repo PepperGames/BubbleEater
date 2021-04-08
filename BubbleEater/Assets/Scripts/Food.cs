@@ -11,6 +11,7 @@ public class Food : MonoBehaviour
 
     private float fade = 1;
 
+    [SerializeField]
     private Vector3 currentScale;
     private float scaleCoefficient = 1;
 
