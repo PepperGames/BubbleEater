@@ -13,7 +13,7 @@ public class Food : MonoBehaviour
 
     [SerializeField]
     private Vector3 currentScale;
-    private float scaleCoefficient = 1;
+    private float scaleCoefficient = 2;
 
     [SerializeField]
     private float timeToExplosion;
@@ -24,8 +24,7 @@ public class Food : MonoBehaviour
     void Start()
     {
         material = GetComponent<SpriteRenderer>().material;
-        currentScale = transform.localScale;
-        radius = transform.localScale.x;
+        radius = currentScale.x;
         dissolvingSpeed = Random.Range(1f, 4f);
         timeToExplosion = Random.Range(2f, 4f);
     }

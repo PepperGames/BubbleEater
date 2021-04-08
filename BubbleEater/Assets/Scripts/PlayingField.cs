@@ -104,8 +104,11 @@ public class PlayingField : MonoBehaviour
     {
         Vector3 position = GetPointForNeedleMoving(1);
         Quaternion rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-        needle.transform.position = position;
-        needle.transform.rotation = rotation;
+        if(position.x != 0 && position.y != 0)
+        {
+            needle.transform.position = position;
+            needle.transform.rotation = rotation;
+        }
     }
 
     private Vector2 GetPointForNeedleMoving(int i)
@@ -122,11 +125,7 @@ public class PlayingField : MonoBehaviour
         {
             if (i > 3)
             {
-                if (CanBePlaced(new Vector2(0, 0), GetProjection(new PointF(position.x, position.y),
-                    new PointF(player.transform.position.x, player.transform.position.y), new PointF(targetToMove.x, targetToMove.y))))
-                {
-                    return new Vector2(0, 0);
-                }
+                return new Vector2(0, 0);
             }
             i++;
             print(i);

@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dissolvingSpeed: 1
+  currentScale: {x: 2, y: 2, z: 0}
   timeToExplosion: 2
   circleCollider: {fileID: 8651581626986944199}
 --- !u!58 &8651581626986944199

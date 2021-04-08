@@ -47,20 +47,28 @@ public class Player : MonoBehaviour
         }
         else
         {
-            fade -= dissolvingSpeed * Time.deltaTime;
-            scaleCoefficient += (1 / fade) / 80;
+            DeadAnimation();
+        }
+    }
 
-            if (fade <= 0)
+    private void DeadAnimation()
+    {
+        fade -= dissolvingSpeed * Time.deltaTime;
+        scaleCoefficient += (1 / fade) / 80;
+
+        if (fade <= 0)
+        {
+            if (fade < -2)
             {
-                Destroy(gameObject);
+                ToDeadMenu();
             }
+        }
 
-            SetFade();
+        SetFade();
 
-            if (fade >= 0.1f)
-            {
-                SetMaterialScale();
-            }
+        if (fade >= 0.1f)
+        {
+            SetMaterialScale();
         }
     }
 
@@ -88,6 +96,10 @@ public class Player : MonoBehaviour
     private void ConsumeFood(float step)
     {
         currentSatiety -= step * weight * 1f / 100f;
+        if (currentSatiety <= 0)
+        {
+            SetDead();
+        }
         DrowSatiety();
     }
 
@@ -179,6 +191,6 @@ public class Player : MonoBehaviour
 
     private void ToDeadMenu()
     {
-        SceneManager.LoadScene("OtherSceneName");
+        SceneManager.LoadScene("DeadScene");
     }
 }
