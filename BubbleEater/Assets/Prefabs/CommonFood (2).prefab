@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f22c100449382746872a9ea5ae88f9c, type: 3}
-  m_Color: {r: 1, g: 0.95967376, b: 0.6, a: 0.5019608}
+  m_Color: {r: 0.5660378, g: 0.41563952, b: 0.36044857, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,7 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolvingSpeed: 1
   timeToExplosion: 2
-  myCircleCollider: {fileID: 8651581626986944199}
+  circleCollider: {fileID: 8651581626986944199}
+  weight: 0
 --- !u!58 &8651581626986944199
 CircleCollider2D:
   m_ObjectHideFlags: 0

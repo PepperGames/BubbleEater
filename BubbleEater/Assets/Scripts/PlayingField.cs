@@ -39,10 +39,10 @@ public class PlayingField : MonoBehaviour
         leftLine = -(startBackgroundX / 2) * scaleCoefficient;
         upperLine = (startBackgroundY / 2) * scaleCoefficient;
         bottomLine = -(startBackgroundY / 2) * scaleCoefficient;
-        StartCoroutine(RegularCoroutine());
+        StartCoroutine(CameraSizeCoroutine());
     }
    
-    IEnumerator RegularCoroutine()
+    IEnumerator CameraSizeCoroutine()
     {
         for (; currentScale <= scaleCoefficient; currentScale+=0.002f)
         {
