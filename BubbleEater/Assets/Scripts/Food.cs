@@ -21,6 +21,9 @@ public class Food : MonoBehaviour
     public CircleCollider2D circleCollider;
 
     private float radius;
+
+    public AudioSource bupAudioSource;
+
     void Start()
     {
         material = GetComponent<SpriteRenderer>().material;
@@ -49,6 +52,10 @@ public class Food : MonoBehaviour
 
             if (fade >= 0.1f)
             {
+                if (!bupAudioSource.isPlaying)
+                {
+                    bupAudioSource.Play();
+                }
                 SetMaterialScale();
             }
         }

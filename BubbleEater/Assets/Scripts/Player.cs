@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     private float dissolvingSpeed;
     private Vector3 currentScale;
 
+    public AudioSource ateAudioSource;
+    public AudioSource deadAudioSource;
+
     void Start()
     {
         target = transform.position;
@@ -53,13 +56,15 @@ public class Player : MonoBehaviour
 
     private void DeadAnimation()
     {
+        
         fade -= dissolvingSpeed * Time.deltaTime;
-        scaleCoefficient += (1 / fade) / 80;
+        scaleCoefficient += (1 / fade) ;
 
         if (fade <= 0)
         {
             if (fade < -2)
             {
+                SetScore();
                 ToDeadMenu();
             }
         }
@@ -68,6 +73,10 @@ public class Player : MonoBehaviour
 
         if (fade >= 0.1f)
         {
+            if (!deadAudioSource.isPlaying)
+            {
+                deadAudioSource.Play();
+            }
             SetMaterialScale();
         }
     }
@@ -105,6 +114,7 @@ public class Player : MonoBehaviour
 
     private void Eat(float weight)
     {
+        ateAudioSource.Play();
         currentSatiety += weight;
         if (currentSatiety > this.weight)
         {
@@ -139,14 +149,17 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Food"))
+        if (alive)
         {
-            Eat(collision.GetComponent<Food>().GetWeight());
-            Destroy(collision.gameObject);
-        }
-        else if (collision.CompareTag("Needle"))
-        {
-            SetDead();
+            if (collision.CompareTag("Food"))
+            {
+                Eat(collision.GetComponent<Food>().GetWeight());
+                Destroy(collision.gameObject);
+            }
+            else if (collision.CompareTag("Needle"))
+            {
+                SetDead();
+            }
         }
     }
 
@@ -172,7 +185,7 @@ public class Player : MonoBehaviour
 
     private void SetMaterialScale()
     {
-        material.SetFloat("_SpraySize", (30) * (1 + 5 * fade));
+        material.SetFloat("_SpraySize", (10) * (1 + 5 * fade));
         SetGameobjectScale();
     }
 
@@ -192,5 +205,23 @@ public class Player : MonoBehaviour
     private void ToDeadMenu()
     {
         SceneManager.LoadScene("DeadScene");
+    }
+    public void SetScore()
+    {
+        PlayerPrefs.SetFloat("SaveScore", weight);
+
+        float bestScore = 0;
+        if (PlayerPrefs.HasKey("SaveBestScore")) 
+        {
+            print("счет" + weight);
+            bestScore = PlayerPrefs.GetFloat("SaveBestScore");
+        }
+
+        if (weight > bestScore)
+        {
+            print("новый лучший" + weight);
+            PlayerPrefs.SetFloat("SaveBestScore", weight);
+        }
+
     }
 }
