@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class DeadMenu : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class DeadMenu : MonoBehaviour
     public AudioSource clickAudioSource;
     private float bestScore = 0f;
     private float score = 0f;
-    public Text ScoreText;
-    public Text BestScoreText;
+    public TMP_Text ScoreText;
+    public TMP_Text BestScoreText;
     private void Awake()
     {
         
